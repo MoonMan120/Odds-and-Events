@@ -23,14 +23,14 @@ function sortOandE() {
 
 // sort one
 function sortOne() {
-  sort();
+  sortOandE();
   render();
 }
 
 // sort all
 function sortAll() {
   while (bank.length) {
-    sort();
+    sortOandE();
   }
   render();
 }
@@ -40,11 +40,11 @@ function placeInBank() {
   const $form = document.createElement("form");
   $form.innerHTML = `
     <label> Add a Number 
-    <input name="number type="number">
+    <input name="number" type="number">
     </label>
     <button type="submit" data-action="add">Add number</button>
   <button type="submit" data-action="sortOne">Sort 1</button>
-  <button type="submit" data-action="add">Sort All</button>
+  <button type="submit" data-action="sortAll">Sort All</button>
   `;
   $form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -79,7 +79,8 @@ function theBank(label, numbers) {
 `;
 
   const $numbers = numbers.map(bankNumbers);
-  $bank.querySelector(`output`).replaceChildren($numbers);
+  $bank.querySelector(`output`).replaceChildren(...$numbers);
+  //   ... needed - returns [object] without it
 
   return $bank;
 }
@@ -89,7 +90,7 @@ function render() {
   $app.innerHTML = `
     <h1>Odds and Events</h1>
     <placeInBank></placeInBank>
-    <theBank id-"bank"></theBank>
+    <theBank id="bank"></theBank>
     <theBank id="odds"></theBank>
     <theBank id="evens"></theBank>
   `;
